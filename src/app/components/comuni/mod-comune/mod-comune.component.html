@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="form-container">
+    <mat-card>
+      <mat-card-title>Modifica Comune</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+          <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="nome"
+              oninput="this.value = this.value.toUpperCase()"
+            />
+          </mat-form-field>
+
+          <div formGroupName="provincia">
+            <mat-form-field *ngIf="province">
+              <mat-label>Provincia</mat-label>
+              <mat-select id="provincia" formControlName="id">
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let x of province" [value]="x.id">
+                  {{ x.nome }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-card-actions>
+              <button
+                mat-flat-button
+                color="accent"
+                type="button"
+                (click)="back()"
+              >
+                Indietro
+              </button>
+
+              <button
+                mat-flat-button
+                color="primary"
+                [disabled]="!form.valid"
+                type="submit"
+              >
+                Modifica
+              </button>
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

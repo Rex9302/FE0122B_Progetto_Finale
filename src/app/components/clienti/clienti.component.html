@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="table-container">
+    <button mat-stroked-button color="primary" [routerLink]="'nuovo-cliente'">
+      Nuovo Cliente
+    </button>
+    <table mat-table [dataSource]="dataSource" *ngIf="clienti else spinner">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="ragioneSociale">
+        <th mat-header-cell *matHeaderCellDef>Ragione Sociale</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.ragioneSociale }}</td>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.email }}</td>
+      </ng-container>
+      <ng-container matColumnDef="piva">
+        <th mat-header-cell *matHeaderCellDef>P.Iva</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.partitaIva }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fattureCliente">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let cliente">
+          <button
+            mat-stroked-button
+            color="primary"
+            [routerLink]="['/fatture/cliente', cliente.id]"
+          >
+            Fatture
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="modificaCliente">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let cliente">
+          <button
+            mat-stroked-button
+            color="accent"
+            [routerLink]="['modifica-cliente', cliente.id]"
+          >
+            Modifica
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deleteCliente">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let cliente; let i = index">
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="deleteCliente(cliente.id, i)"
+          >
+            Elimina
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="20"
+      showFirstLastButtons="true"
+      (page)="onPageChanged($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>
+<ng-template #spinner>
+  <div class="overlay">
+    <div class="spinner-container">
+      <mat-spinner color='primary'></mat-spinner>
+    </div>
+  </div>
+</ng-template>

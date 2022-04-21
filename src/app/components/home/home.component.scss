@@ -1,0 +1,29 @@
+.container-home{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+mat-card-actions button{
+  width: 100%;
+}
+mat-card-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.example-card{
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  border-radius: 8px;
+  width: 25%;
+}
+.home{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

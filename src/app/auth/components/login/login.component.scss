@@ -1,0 +1,48 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke
+}
+.incolonna{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+mat-card-actions, mat-card-footer{
+  display: flex;
+  justify-content: center;
+}
+mat-card{
+  padding: 30px 50px;
+  border-radius: 15px;
+}
+mat-card-header{
+  display: flex;
+  justify-content: flex-end;
+}
+.evidezia{
+  text-decoration: underline;
+}
+button{
+  width: 100%;
+}
+mat-card-content{
+  display: flex;
+}
+.form{
+  width: 350px;
+  display: flex;
+  align-items: center;
+}
+form{
+  width: 100%;
+}
+.lottie{
+  margin-right: 30px;
+}

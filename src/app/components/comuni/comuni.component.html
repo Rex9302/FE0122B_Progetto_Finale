@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="table-container">
+    <button mat-stroked-button color="primary" [routerLink]="'nuovo-comune'">
+      Nuovo Comune
+    </button>
+<table mat-table [dataSource]="dataSource" *ngIf="comuni; else spinner">
+  <ng-container matColumnDef="nome">
+    <th mat-header-cell *matHeaderCellDef>Nome</th>
+    <td mat-cell *matCellDef="let p">{{ p.nome }}</td>
+  </ng-container>
+  <ng-container matColumnDef="provincia">
+    <th mat-header-cell *matHeaderCellDef>Provincia</th>
+    <td mat-cell *matCellDef="let p">{{ p.provincia.sigla }}</td>
+  </ng-container>
+  <ng-container matColumnDef="detailComune">
+    <th mat-header-cell *matHeaderCellDef>Modifica Comune</th>
+    <td mat-cell *matCellDef="let p; let i = index">
+      <button mat-stroked-button color="primary" (click)="detailComune(p.id)" [routerLink]="['/comuni/' + p.id]">
+        Modifica
+      </button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="deleteComune">
+    <th mat-header-cell *matHeaderCellDef>Elimina Comune</th>
+    <td mat-cell *matCellDef="let p; let i = index">
+      <button mat-stroked-button color="warn" (click)="deleteComune(p.id, i)">Elimina</button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<mat-paginator
+        [length]="totalElements"
+              [pageSize]="20"
+              (page)="onPageChanged($event)"
+              aria-label="Select page">
+</mat-paginator>
+  </div>
+</div>
+<ng-template #spinner>
+  <div class="overlay">
+    <div class="spinner-container">
+      <mat-spinner color="primary"></mat-spinner>
+    </div>
+  </div>
+</ng-template>

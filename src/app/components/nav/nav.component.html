@@ -1,0 +1,108 @@
+<mat-toolbar *ngIf="showNav == true" >
+  <span style="margin-left: 15px">Dashboard CRM</span>
+  <div class="logout">
+    <span style="margin-left: 15px">Benvenuto, {{nome.username}}</span>
+    <button
+      color="warn"
+      mat-raised-button
+      (click)="logout()"
+    >
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened="true" #sidenav>
+      <div class="sidenav-container">
+      <mat-list>
+        <mat-list-item>
+          <button
+            color="accent"
+            mat-raised-button
+            [routerLink]="['/']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact:true}"
+          >
+            Home
+          </button>
+
+        </mat-list-item>
+
+        <mat-list-item>
+          <button
+            color="accent"
+            mat-raised-button
+            [routerLink]="['/users']"
+            routerLinkActive="active"
+          >
+            Utenti
+          </button>
+
+        </mat-list-item>
+
+        <mat-list-item>
+          <button
+            color="accent"
+            mat-raised-button
+            [routerLink]="['/clienti']"
+            routerLinkActive="active"
+          >
+            Clienti
+          </button>
+
+        </mat-list-item>
+
+        <mat-list-item>
+          <button
+            color="accent"
+            mat-raised-button
+            [routerLink]="['/fatture']"
+            routerLinkActive="active"
+          >
+            Fatture
+          </button>
+
+        </mat-list-item>
+
+        <mat-list-item>
+          <button
+            color="accent"
+            mat-raised-button
+            [routerLink]="['/province']"
+            routerLinkActive="active"
+          >
+            Province
+          </button>
+
+        </mat-list-item>
+
+        <mat-list-item>
+          <button
+            color="accent"
+            mat-raised-button
+            [routerLink]="['/comuni']"
+            routerLinkActive="active"
+          >
+            Comuni
+          </button>
+
+        </mat-list-item>
+
+        <mat-list-item>
+          <button
+            color="accent"
+            mat-raised-button
+            [routerLink]="['/logged-signup']"
+            routerLinkActive="active"
+          >
+            Signup
+          </button>
+
+        </mat-list-item>
+      </mat-list>
+    </div>
+    </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

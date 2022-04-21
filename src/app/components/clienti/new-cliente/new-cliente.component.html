@@ -1,0 +1,122 @@
+<div class="container">
+  <div class="form-container">
+    <mat-card class="card">
+      <mat-card-title class="mb">Nuovo Cliente</mat-card-title>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+          <mat-form-field>
+            <mat-label>Ragione Sociale</mat-label>
+            <input matInput formControlName="ragioneSociale" type="text" id="ragioneSociale" autocomplete="false" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Partita IVA</mat-label>
+            <input matInput formControlName="partitaIva" type="text" id="partitaIva" autocomplete="false" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" id="email" autocomplete="false" />
+          </mat-form-field>
+
+          <mat-form-field *ngIf="tipiclienti">
+            <mat-label>Tipo Cliente</mat-label>
+            <mat-select formControlName="tipoCliente" id="tipoCliente">
+              <mat-option value=""></mat-option>
+              <mat-option *ngFor="let tc of tipiclienti" value="{{ tc }}">
+                {{ tc }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>PEC</mat-label>
+            <input matInput formControlName="pec" type="email" id="pec" autocomplete="false" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Telefono</mat-label>
+            <input matInput formControlName="telefono" type="tel" id="telefono" autocomplete="false" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Nome Contatto</mat-label>
+            <input matInput formControlName="nomeContatto" type="text" id="nomeContatto" autocomplete="false" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Cognome Contatto</mat-label>
+            <input matInput formControlName="cognomeContatto" type="text" id="cognomeContatto" autocomplete="false" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Telefono Contatto</mat-label>
+            <input matInput formControlName="telefonoContatto" type="tel" id="telefonoContatto" autocomplete="false" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Email Contatto</mat-label>
+            <input matInput formControlName="emailContatto" type="email" id="emailContatto" autocomplete="false" />
+          </mat-form-field>
+
+          <div formGroupName="indirizzoSedeOperativa">
+            <mat-form-field>
+              <mat-label>Via</mat-label>
+              <input matInput formControlName="via" type="text" id="via" autocomplete="false" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Civico</mat-label>
+              <input matInput formControlName="civico" type="text" id="civico" autocomplete="false" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Cap</mat-label>
+              <input matInput formControlName="cap" type="text" id="cap" autocomplete="false" />
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Localita</mat-label>
+              <input matInput formControlName="localita" type="text" id="localita" autocomplete="false" />
+            </mat-form-field>
+
+            <div formGroupName="comune" class="cmn">
+              <mat-form-field  *ngIf="comuni" >
+                <mat-label>Comune</mat-label>
+                <mat-select id="id"formControlName="id">
+                  <mat-option value=""></mat-option>
+                  <mat-option *ngFor="let x of comuni" [value]="x.id">
+                    {{ x.nome }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div formGroupName="provincia">
+                <mat-form-field *ngIf="province" >
+                  <mat-label>Provincia</mat-label>
+                  <mat-select id="provincia" formControlName="id">
+                    <mat-option value=""></mat-option>
+                    <mat-option *ngFor="let x of province" [value]="x.id">
+                      {{ x.nome }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <mat-card-actions>
+
+              <button mat-flat-button color="accent" type="button" (click)="back()">
+                Indietro
+              </button>
+
+              <button mat-flat-button color="primary" [disabled]="!form.valid" type="submit">
+                Invia
+              </button>
+
+          </mat-card-actions>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
