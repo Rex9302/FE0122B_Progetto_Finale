@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { Fatture } from 'src/app/models/fatture';
 import { StatoFattura } from 'src/app/models/stato-fattura';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class NewFatturaComponent implements OnInit {
   statusFatture!: StatoFattura[];
   form!: FormGroup;
 
-  constructor(private fattureSrv:FattureService, private fb: FormBuilder, private location:Location, private route:ActivatedRoute) { }
+  constructor(private fattureSrv:FattureService, private fb: FormBuilder, private location:Location, private route:ActivatedRoute, private snackBar:MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -54,10 +55,14 @@ export class NewFatturaComponent implements OnInit {
     this.fattura.importo = DatiForm.value.importo
     this.fattura.stato.id = Number(DatiForm.value.stato)
     this.fattura.cliente.id = this.id
-    console.log(this.fattura)
-    this.fattureSrv.newFattura(this.fattura).subscribe(ris=>{
-      console.log(ris)
-    })
+    this.fattureSrv.newFattura(this.fattura).subscribe()
+    this.snackBar.open(
+      'Fattura Creata',
+      'Chiudi',
+      {
+        duration: 2000,
+      }
+    );
     };
 
     back(): void {
