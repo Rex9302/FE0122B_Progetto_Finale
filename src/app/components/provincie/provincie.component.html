@@ -1,8 +1,20 @@
 <div class="container">
   <div class="table-container">
-    <button mat-stroked-button color="primary" [routerLink]="'nuova-provincia'">
-      Nuova Provincia
-    </button>
+    <div class="controls">
+      <button
+        mat-stroked-button
+        color="primary"
+        [routerLink]="'nuova-provincia'"
+      >
+        Nuova Provincia
+      </button>
+      <mat-paginator
+        [length]="totalElements"
+        [pageSize]="20"
+        (page)="onPageChanged($event)"
+      >
+      </mat-paginator>
+    </div>
     <table mat-table [dataSource]="dataSource" *ngIf="province; else spinner">
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef>Nome</th>
@@ -15,7 +27,12 @@
       <ng-container matColumnDef="detailProvince">
         <th mat-header-cell *matHeaderCellDef>Modifica Provincia</th>
         <td mat-cell *matCellDef="let p; let i = index">
-          <button mat-stroked-button color="primary" (click)="detailProvince(p.id)" [routerLink]="['/province/' + p.id]">
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="detailProvince(p.id)"
+            [routerLink]="['/province/' + p.id]"
+          >
             Modifica
           </button>
         </td>
@@ -23,13 +40,23 @@
       <ng-container matColumnDef="deleteProvince">
         <th mat-header-cell *matHeaderCellDef>Elimina Provincia</th>
         <td mat-cell *matCellDef="let p; let i = index">
-          <button mat-stroked-button color="warn" (click)="deleteProvince(p.id, i)">Elimina</button>
+          <button
+            mat-stroked-button
+            color="warn"
+            (click)="deleteProvince(p.id, i)"
+          >
+            Elimina
+          </button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator [length]="totalElements" [pageSize]="20" (page)="onPageChanged($event)">
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="20"
+      (page)="onPageChanged($event)"
+    >
     </mat-paginator>
   </div>
 </div>

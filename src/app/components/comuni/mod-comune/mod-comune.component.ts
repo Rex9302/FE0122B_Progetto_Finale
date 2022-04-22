@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Comuni } from 'src/app/models/comuni';
 import { Provincie } from 'src/app/models/provincie';
@@ -28,7 +29,8 @@ export class ModComuneComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private comuniSrv: ComuniService,
-    private provinceSrv: ProvinceService
+    private provinceSrv: ProvinceService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -52,8 +54,9 @@ export class ModComuneComponent implements OnInit {
     this.comune.nome = DatiForm.value.nome;
     this.comune.provincia = DatiForm.value.provincia;
     this.comuniSrv.updateComune(this.id, this.comune).subscribe();
-    alert('Comune Aggiornato');
-    this.form.reset();
+    this.snackBar.open('Comune Aggiornato', 'Chiudi', {
+      duration: 2000,
+    });
   }
 
   loadComuni() {

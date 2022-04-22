@@ -1,9 +1,18 @@
 <div class="container">
   <div class="table-container">
-    <button mat-stroked-button color="primary" [routerLink]="'nuovo-cliente'">
-      Nuovo Cliente
-    </button>
-    <table mat-table [dataSource]="dataSource" *ngIf="clienti else spinner">
+    <div class="controls">
+      <button mat-stroked-button color="primary" [routerLink]="'nuovo-cliente'">
+        Nuovo Cliente
+      </button>
+      <mat-paginator
+        [length]="totalElements"
+        [pageSize]="20"
+        showFirstLastButtons="true"
+        (page)="onPageChanged($event)"
+      >
+      </mat-paginator>
+    </div>
+    <table mat-table [dataSource]="dataSource" *ngIf="clienti; else spinner">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>ID</th>
         <td mat-cell *matCellDef="let cliente">{{ cliente.id }}</td>
@@ -20,9 +29,8 @@
         <th mat-header-cell *matHeaderCellDef>P.Iva</th>
         <td mat-cell *matCellDef="let cliente">{{ cliente.partitaIva }}</td>
       </ng-container>
-
       <ng-container matColumnDef="fattureCliente">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef>Fatture Cliente</th>
         <td mat-cell *matCellDef="let cliente">
           <button
             mat-stroked-button
@@ -34,7 +42,7 @@
         </td>
       </ng-container>
       <ng-container matColumnDef="modificaCliente">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef>Modifica Cliente</th>
         <td mat-cell *matCellDef="let cliente">
           <button
             mat-stroked-button
@@ -45,9 +53,8 @@
           </button>
         </td>
       </ng-container>
-
       <ng-container matColumnDef="deleteCliente">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef>Elimina Cliente</th>
         <td mat-cell *matCellDef="let cliente; let i = index">
           <button
             mat-stroked-button
@@ -61,7 +68,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
     <mat-paginator
       [length]="totalElements"
       [pageSize]="20"
@@ -74,7 +80,7 @@
 <ng-template #spinner>
   <div class="overlay">
     <div class="spinner-container">
-      <mat-spinner color='primary'></mat-spinner>
+      <mat-spinner color="primary"></mat-spinner>
     </div>
   </div>
 </ng-template>

@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { User } from 'src/app/models/user';
@@ -21,7 +22,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authSrv: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -37,21 +39,20 @@ export class SignupComponent implements OnInit {
     this.form.controls['password'].setValue('');
   }
   onSubmit(DatiForm: { value: User }) {
-    console.log(DatiForm.value);
     const ruoli = Array();
     ruoli.push(this.form.value.role);
     this.form.value.role = ruoli;
-    console.log(ruoli);
 
-    this.authSrv.signup(DatiForm.value).subscribe((risposta) => {
-      console.log(risposta);
+    this.authSrv.signup(DatiForm.value).subscribe(() => {
       if (this.authSrv.isLogged == false) {
         this.router.navigate(['/login']);
       }
       this.form.controls['username'].setValue('');
       this.form.controls['email'].setValue('');
       this.form.controls['password'].setValue('');
-      alert('User registrato con successo');
+      this.snackBar.open('Utente registrato', 'Chiudi', {
+        duration:3000
+      })
     });
   }
   log(){

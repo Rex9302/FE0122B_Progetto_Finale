@@ -79,3 +79,8 @@ tr:nth-child(even){
 button{
   border-radius: 8px !important;
 }
+.controls{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

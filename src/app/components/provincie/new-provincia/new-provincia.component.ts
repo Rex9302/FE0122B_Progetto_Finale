@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Provincie } from 'src/app/models/provincie';
 import { ProvinceService } from 'src/app/services/provincie.service';
 
@@ -14,7 +15,7 @@ export class NewProvinciaComponent implements OnInit {
   form!: FormGroup;
   provincia!:Provincie;
 
-  constructor(private location:Location, private fb: FormBuilder, private provinceSrv:ProvinceService) { }
+  constructor(private location:Location, private fb: FormBuilder, private provinceSrv:ProvinceService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -33,7 +34,9 @@ export class NewProvinciaComponent implements OnInit {
     this.provincia.nome = DatiForm.value.nome
     this.provincia.sigla = DatiForm.value.sigla
     this.provinceSrv.newProvincia(this.provincia).subscribe()
-    alert('Provincia Aggiunta')
+    this.snackBar.open('Provincia Aggiunta', 'Chiudi', {
+      duration:2000
+    })
     this.form.reset()
   }
 }

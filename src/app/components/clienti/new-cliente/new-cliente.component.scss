@@ -5,8 +5,9 @@ mat-form-field{
   width: 45%;
   margin: 0px 15px;
 }
-.cmn{
-display: inline-flex;
+.bot{
+display: flex;
+flex-direction: column-reverse;
 }
 mat-card-actions{
   display: inline-flex;
@@ -15,4 +16,7 @@ mat-card-actions{
 }
 button{
   margin-right:15px;
+}
+.w50{
+  width: 100%;
 }

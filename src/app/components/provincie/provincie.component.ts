@@ -1,46 +1,54 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProvinceService } from 'src/app/services/provincie.service';
 
 @Component({
   selector: 'app-provincie',
   templateUrl: './provincie.component.html',
-  styleUrls: ['./provincie.component.scss']
+  styleUrls: ['./provincie.component.scss'],
 })
 export class ProvincieComponent implements OnInit {
+  displayedColumns: string[] = [
+    'nome',
+    'sigla',
+    'detailProvince',
+    'deleteProvince',
+  ];
+  pageNumber: number = 0;
+  province!: any;
+  items!: any;
+  totalElements!: number;
+  dataSource!: any;
 
-  displayedColumns: string[] = ['nome', 'sigla', 'detailProvince', 'deleteProvince'];
-  pageNumber:number = 0
-  province!:any
-  items!:any;
-  totalElements!:number;
-  dataSource!:any;
-
-  constructor(private provinceSrv:ProvinceService) { }
+  constructor(private provinceSrv: ProvinceService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this.loadProvince()
+    this.loadProvince();
   }
-  loadProvince(){
-    this.provinceSrv.getAll(this.pageNumber).subscribe(ris =>{
-      this.items = ris
-      this.province  = this.items.content
-      this.dataSource = new MatTableDataSource(this.province)
-      this.totalElements = this.items.totalElements
-    })
+  loadProvince() {
+    this.provinceSrv.getAll(this.pageNumber).subscribe((ris) => {
+      this.items = ris;
+      this.province = this.items.content;
+      this.dataSource = new MatTableDataSource(this.province);
+      this.totalElements = this.items.totalElements;
+    });
   }
-  onPageChanged(pageEvent:PageEvent){
-    this.pageNumber = pageEvent.pageIndex
-    this.loadProvince()
+  onPageChanged(pageEvent: PageEvent) {
+    this.pageNumber = pageEvent.pageIndex;
+    this.loadProvince();
   }
-  detailProvince(id:number){
-    this.provinceSrv.getByID(id)
+  detailProvince(id: number) {
+    this.provinceSrv.getByID(id);
   }
-  deleteProvince(id:number, i:number){
-    this.provinceSrv.delete(id).subscribe(()=>{
+  deleteProvince(id: number, i: number) {
+    this.provinceSrv.delete(id).subscribe(() => {
       this.province.splice(i, 1);
-      this.dataSource = new MatTableDataSource(this.province)
-    })
+      this.dataSource = new MatTableDataSource(this.province);
+      this.snackBar.open('Provincia Eliminata', 'Chiudi', {
+        duration: 2000,
+      });
+    });
   }
 }

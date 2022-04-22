@@ -11,6 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: 'logged-signup',
+        canActivate: [AuthGuard],
         component: SignupComponent,
       },
       {
@@ -111,6 +112,7 @@ const routes: Routes = [
       },
       {
         path: 'comuni/nuovo-comune',
+        canActivate: [AuthGuard],
         loadChildren: () =>
           import('../comuni/new-comune/new-comune.module').then(
             (m) => m.NewComuneModule
@@ -118,6 +120,7 @@ const routes: Routes = [
       },
       {
         path: 'comuni/:id',
+        canActivate: [AuthGuard],
         loadChildren: () =>
           import('../comuni/mod-comune/mod-comune.module').then(
             (m) => m.ModComuneModule

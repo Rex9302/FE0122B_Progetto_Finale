@@ -37,7 +37,6 @@ export class TokenInterceptor implements HttpInterceptor {
         ok = evento instanceof HttpResponse ? 'successo' : '';
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log(error.error.error)
         console.log(error)
           this.snackBar.open(error.error.error, 'Chiudi', {
             duration:3000

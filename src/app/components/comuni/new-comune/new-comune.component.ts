@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Comuni } from 'src/app/models/comuni';
 import { Provincie } from 'src/app/models/provincie';
 import { ComuniService } from 'src/app/services/comuni.service';
@@ -17,7 +18,7 @@ export class NewComuneComponent implements OnInit {
   comuni!:Comuni;
   province!: Provincie[];
 
-  constructor(private location:Location, private fb: FormBuilder, private provincieSrv:ProvinceService, private comuniSrv:ComuniService) { }
+  constructor(private location:Location, private fb: FormBuilder, private provincieSrv:ProvinceService, private comuniSrv:ComuniService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -39,7 +40,9 @@ export class NewComuneComponent implements OnInit {
     this.comuni.nome = DatiForm.value.nome
     this.comuni.provincia = DatiForm.value.provincia
     this.comuniSrv.saveComune(this.comuni).subscribe()
-    alert('Comune Aggiunto')
+    this.snackBar.open('Comune Aggiunto', 'Chiudi', {
+      duration:2000
+    })
     this.form.reset()
   }
 

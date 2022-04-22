@@ -80,12 +80,12 @@
               <input matInput formControlName="localita" type="text" id="localita" autocomplete="false" />
             </mat-form-field>
 
-            <div formGroupName="comune" class="cmn">
+            <div formGroupName="comune" class="bot">
               <mat-form-field  *ngIf="comuni" >
                 <mat-label>Comune</mat-label>
-                <mat-select id="id"formControlName="id">
+                <mat-select id="id"formControlName="id" >
                   <mat-option value=""></mat-option>
-                  <mat-option *ngFor="let x of comuni" [value]="x.id">
+                  <mat-option *ngFor="let x of filterComuni" [value]="x.id">
                     {{ x.nome }}
                   </mat-option>
                 </mat-select>
@@ -94,9 +94,9 @@
               <div formGroupName="provincia">
                 <mat-form-field *ngIf="province" >
                   <mat-label>Provincia</mat-label>
-                  <mat-select id="provincia" formControlName="id">
+                  <mat-select id="provincia" formControlName="id" [(value)]="selected">
                     <mat-option value=""></mat-option>
-                    <mat-option *ngFor="let x of province" [value]="x.id">
+                    <mat-option *ngFor="let x of province; let i = index" [value]="x.id" (click)="checkUserSelection()">
                       {{ x.nome }}
                     </mat-option>
                   </mat-select>
