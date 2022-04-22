@@ -12,6 +12,36 @@
       >
       </mat-paginator>
     </div>
+    <div class="src">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form)" class="src-form">
+        <mat-form-field>
+          <mat-label>Ricerca clienti per Ragione Sociale</mat-label>
+          <input
+            matInput
+            formControlName="ricerca"
+            type="text"
+            id="ricerca"
+            autocomplete="false"
+          />
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!form.valid"
+          type="submit"
+        >
+          Cerca
+        </button>
+        <button
+          mat-flat-button
+          color="accent"
+          type="button"
+          (click)="resetta()"
+        >
+          Reset
+        </button>
+      </form>
+    </div>
     <table mat-table [dataSource]="dataSource" *ngIf="clienti; else spinner">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>ID</th>
@@ -68,13 +98,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator
-      [length]="totalElements"
-      [pageSize]="20"
-      showFirstLastButtons="true"
-      (page)="onPageChanged($event)"
-    >
-    </mat-paginator>
   </div>
 </div>
 <ng-template #spinner>

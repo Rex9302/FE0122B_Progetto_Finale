@@ -29,5 +29,7 @@ export class ClientiService {
   typeClienti(){
     return this.http.get<any[]>(`${this.URL}/api/clienti/tipicliente`)
   }
-
+  srcClienti(p:any){
+    return this.http.get<any[]>(`${this.URL}/api/clienti/ragionesociale?nome=${p}`)
+  }
 }

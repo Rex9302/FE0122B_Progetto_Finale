@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/service/auth.service';
 import { User } from 'src/app/models/user';
@@ -30,8 +29,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(DatiForm: { value: User }) {
-    this.authSrv.login(DatiForm.value).subscribe((risposta) => {
-      this.user = risposta;
+    this.authSrv.login(DatiForm.value).subscribe((ris) => {
+      this.user = ris;
       localStorage.setItem('user', JSON.stringify(this.user));
       this.router.navigate(['/']);
     });

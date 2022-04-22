@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
@@ -22,15 +28,21 @@ export class ClientiComponent implements OnInit {
   items!: any;
   pageNumber: number = 0;
   clienti!: any;
+  form!: FormGroup;
   totalElements!: number;
   dataSource!: any;
+  filterData!: any;
   constructor(
     private clientSrv: ClientiService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.loadClients();
+    this.form = this.fb.group({
+      ricerca: new FormControl('', Validators.required),
+    });
   }
 
   loadClients() {
@@ -52,5 +64,17 @@ export class ClientiComponent implements OnInit {
     this.snackBar.open('Cliente Eliminato', 'Chiudi', {
       duration: 2000,
     });
+  }
+  onSubmit(DatiForm: { value: any }) {
+    this.clientSrv.srcClienti(DatiForm.value.ricerca).subscribe((ris) => {
+      this.filterData = ris;
+      this.clienti = this.filterData.content;
+      this.dataSource = new MatTableDataSource(this.clienti);
+      this.totalElements = this.filterData.totalElements;
+    });
+  }
+  resetta() {
+    this.loadClients();
+    this.form.reset();
   }
 }

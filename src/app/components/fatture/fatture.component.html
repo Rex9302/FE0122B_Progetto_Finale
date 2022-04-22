@@ -1,12 +1,134 @@
 <div class="container">
   <div class="table-container">
-    <mat-paginator
-      [length]="totalElements"
-      [pageSize]="20"
-      (page)="onPageChanged($event)"
-      showFirstLastButtons="true"
-    >
-    </mat-paginator>
+<div class="controls">
+<form>
+<mat-form-field>
+      <mat-label>Seleziona la ricerca</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option value=""></mat-option>
+        <mat-option value="fatture">Fatture</mat-option>
+        <mat-option value="anno">Anno</mat-option>
+        <mat-option value="stato">Stato</mat-option>
+      </mat-select>
+</mat-form-field>
+</form>
+<mat-paginator
+  [length]="totalElements"
+  [pageSize]="20"
+  (page)="onPageChanged($event)"
+  showFirstLastButtons="true"
+>
+</mat-paginator>
+</div>
+    <div class="src" *ngIf="selected == 'fatture'">
+      <form
+        [formGroup]="formFatturato"
+        (ngSubmit)="onSubmitFattura(formFatturato)"
+        class="src-form"
+      >
+        <mat-form-field>
+          <mat-label>Fatturato Min</mat-label>
+          <input
+            matInput
+            formControlName="fattmin"
+            type="number"
+            id="fattmin"
+            autocomplete="false"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Fatturato Max</mat-label>
+          <input
+            matInput
+            formControlName="fattmax"
+            type="number"
+            id="fattmax"
+            autocomplete="false"
+          />
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!formFatturato.valid"
+          type="submit"
+        >
+          Cerca
+        </button>
+        <button
+          mat-flat-button
+          color="accent"
+          type="button"
+          (click)="resetta()"
+        >
+          Reset
+        </button>
+      </form>
+    </div>
+    <div class="src" *ngIf="selected == 'anno'">
+      <form
+        [formGroup]="formAnno"
+        (ngSubmit)="onSubmitAnno(formAnno)"
+        class="src-form"
+      >
+        <mat-form-field>
+          <mat-label>Anno</mat-label>
+          <input
+            matInput
+            formControlName="anno"
+            type="number"
+            id="anno"
+            autocomplete="false"
+          />
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!formAnno.valid"
+          type="submit"
+        >
+          Cerca
+        </button>
+        <button
+          mat-flat-button
+          color="accent"
+          type="button"
+          (click)="resetta()"
+        >
+          Reset
+        </button>
+      </form>
+    </div>
+    <div class="src" *ngIf="selected == 'stato'">
+      <form
+        [formGroup]="formStato"
+        (ngSubmit)="onSubmitStato(formStato)"
+        class="src-form"
+      >
+        <mat-form-field>
+          <mat-label>Stato</mat-label>
+          <mat-select formControlName="status" id="status">
+            <mat-option [value]="1">PAGATA</mat-option>
+            <mat-option [value]="2">NON PAGATA</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          mat-flat-button
+          color="primary"
+          [disabled]="!formStato.valid"
+          type="submit"
+        >
+          Cerca
+        </button>
+        <button
+          mat-flat-button
+          color="accent"
+          type="button"
+          (click)="resetta()"
+        >
+          Reset
+        </button>
+      </form>
+    </div>
     <table mat-table [dataSource]="dataSource" *ngIf="fatture; else spinner">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef>ID</th>
@@ -68,13 +190,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <mat-paginator
-      [length]="totalElements"
-      [pageSize]="20"
-      showFirstLastButtons="true"
-      (page)="onPageChanged($event)"
-    >
-    </mat-paginator>
   </div>
 </div>
 <ng-template #spinner>

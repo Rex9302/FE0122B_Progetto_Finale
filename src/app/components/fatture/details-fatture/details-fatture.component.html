@@ -4,22 +4,18 @@
       <mat-card-title class="mb">Dettaglio Fattura {{ id }}</mat-card-title>
       <mat-card-content>
         <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
-
           <mat-form-field>
             <mat-label>Data</mat-label>
             <input matInput type="date" formControlName="data" readonly  />
           </mat-form-field>
-
           <mat-form-field>
             <mat-label>Anno</mat-label>
             <input matInput type="number" formControlName="anno" readonly />
           </mat-form-field>
-
           <mat-form-field>
             <mat-label>Importo</mat-label>
             <input matInput type="text" formControlName="importo" readonly />
           </mat-form-field>
-
           <mat-form-field>
             <mat-label>Stato</mat-label>
             <mat-select class="form-control" formControlName="stato" id="stato">
@@ -28,7 +24,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
           <mat-card-actions>
             <div class="center">
               <button
@@ -39,7 +34,6 @@
               >
                 Indietro
               </button>
-
               <button
                 mat-flat-button
                 color="primary"

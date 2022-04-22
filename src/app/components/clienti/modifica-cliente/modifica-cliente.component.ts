@@ -129,12 +129,10 @@ export class ModificaClienteComponent implements OnInit {
         DatiForm.value.indirizzoSedeOperativa.comune = item;
       }
     });
-    this.clientSrv.updateClient(DatiForm.value, this.id).subscribe((ris) => {
-      console.log(ris);
-    });
+    this.clientSrv.updateClient(DatiForm.value, this.id).subscribe();
     this.snackBar.open('Cliente modificato', 'Chiudi', {
-      duration:2000
-    })
+      duration: 2000,
+    });
   }
 
   back(): void {
