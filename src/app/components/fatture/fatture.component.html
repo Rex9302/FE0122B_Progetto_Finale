@@ -1,7 +1,7 @@
 <div class="container">
   <div class="table-container">
 <div class="controls">
-<form>
+<form class="src-form">
 <mat-form-field>
       <mat-label>Seleziona la ricerca</mat-label>
       <mat-select [(value)]="selected">
@@ -11,6 +11,14 @@
         <mat-option value="stato">Stato</mat-option>
       </mat-select>
 </mat-form-field>
+<button
+mat-flat-button
+color="accent"
+type="button"
+(click)="resetta()"
+>
+Reset
+</button>
 </form>
 <mat-paginator
   [length]="totalElements"
